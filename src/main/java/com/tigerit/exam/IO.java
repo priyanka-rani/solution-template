@@ -6,16 +6,18 @@ import java.io.InputStreamReader;
 
 /**
  * @author Faisal Ahmed
- * This is a helper class for input/output in java.
- * Your don't need to use it if you want. This is
- * just for your convenience. Don't use Scanner or
- * System.console() stuff for input.
+ *         This is a helper class for input/output in java.
+ *         Your don't need to use it if you want. This is
+ *         just for your convenience. Don't use Scanner or
+ *         System.console() stuff for input.
  */
 public class IO {
 
-    private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    private static final BufferedReader reader = new BufferedReader(new InputStreamReader(System
+            .in));
 
-    private IO() {}
+    private IO() {
+    }
 
     public static String readLine() {
         String value;
@@ -33,5 +35,9 @@ public class IO {
 
     public static void printLine(Object value) {
         System.out.println(value);
+    }
+
+    public static String removeFirstWord(String string) {
+        return string.trim().split("\\s+", 2)[1];
     }
 }
