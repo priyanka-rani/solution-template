@@ -24,7 +24,7 @@ public class Solution implements Runnable {
 
         int T = readLineAsInteger();
         for (int i = 0; i < T; i++) {
-            runTestCase(i+1);
+            runTestCase(i + 1);
         }
     }
 
@@ -43,12 +43,12 @@ public class Solution implements Runnable {
             queryModelList.add(readQuery(tableArray, map));
             readLine();
         }
-        printLine("Test: "+testCase);
+        printLine("Test: " + testCase);
         printTestCase(queryModelList);
     }
 
     private void printTestCase(List<QueryModel> queryModelList) {
-        for(QueryModel queryModel: queryModelList){
+        for (QueryModel queryModel : queryModelList) {
             printLine(queryModel.toString());
             printLine("");
         }
@@ -90,8 +90,7 @@ public class Solution implements Runnable {
             for (int i = 0; i < splitSelectClause.length; i++) {
                 if (splitSelectClause[i].contains("."))
                     columnList.add(splitSelectClause[i].trim().split("\\.")[1]);
-                else
-                    columnList.add(splitSelectClause[i].trim());
+                else columnList.add(splitSelectClause[i].trim());
             }
         }
         String[] selectedColumnArray = columnList.toArray(new String[columnList.size()]);
@@ -102,29 +101,31 @@ public class Solution implements Runnable {
         String predicate2 = splitOnClause[1].trim().split("\\.")[1];
 
         //check query
-       return getResultFromQuery(table1, table2, predicate1, predicate2, selectedColumnArray);
+        return getResultFromQuery(table1, table2, predicate1, predicate2, selectedColumnArray);
 
     }
 
-    private QueryModel getResultFromQuery(TableModel table1, TableModel table2, String predicate1, String predicate2,
-                                          String[] selectedColumnArray) {
+    private QueryModel getResultFromQuery(TableModel table1, TableModel table2, String
+            predicate1, String predicate2, String[] selectedColumnArray) {
         int table1Index = table1.getColumnMap().get(predicate1);
         int table2Index = table2.getColumnMap().get(predicate2);
+
+        Map<String, Integer> map1 = table1.getColumnMap();
+        Map<String, Integer> map2 = table2.getColumnMap();
+        int[][] table1Data = table1.getTableData();
+        int[][] table2Data = table2.getTableData();
 
         List<int[]> queryResults = new ArrayList<>();
 
         for (int i = 0; i < table1.getnD(); i++) {
             for (int j = 0; j < table2.getnD(); j++) {
-                if (table1.getTableData()[i][table1Index] == table2.getTableData()
-                        [j][table2Index]) {
+                if (table1Data[i][table1Index] == table2Data[j][table2Index]) {
                     int[] resultRow = new int[selectedColumnArray.length];
-                    Map<String, Integer> map1 = table1.getColumnMap();
-                    Map<String, Integer> map2 = table2.getColumnMap();
-                    for(int k=0; k<selectedColumnArray.length; k++){
-                        if(map1.containsKey(selectedColumnArray[k])){
-                            resultRow[k] = table1.getTableData()[i][map1.get(selectedColumnArray[k])];
-                        }else if(map2.containsKey(selectedColumnArray[k])){
-                            resultRow[k] = table2.getTableData()[j][map2.get(selectedColumnArray[k])];
+                    for (int k = 0; k < selectedColumnArray.length; k++) {
+                        if (map1.containsKey(selectedColumnArray[k])) {
+                            resultRow[k] = table1Data[i][map1.get(selectedColumnArray[k])];
+                        } else if (map2.containsKey(selectedColumnArray[k])) {
+                            resultRow[k] = table2Data[j][map2.get(selectedColumnArray[k])];
                         }
                     }
                     queryResults.add(resultRow);
