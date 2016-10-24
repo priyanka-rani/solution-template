@@ -26,11 +26,6 @@ public class Solution implements Runnable {
         for (int i = 0; i < T; i++) {
             runTestCase(i+1);
         }
-        String string = readLine();
-
-        // sample output process
-        printLine(string);
-//        printLine(integer);
     }
 
     private void runTestCase(int testCase) {
@@ -93,14 +88,13 @@ public class Solution implements Runnable {
         } else {
             String[] splitSelectClause = selectClause.split(",");
             for (int i = 0; i < splitSelectClause.length; i++) {
-                if (splitSelectClause[i].contains("\\."))
+                if (splitSelectClause[i].contains("."))
                     columnList.add(splitSelectClause[i].trim().split("\\.")[1]);
                 else
                     columnList.add(splitSelectClause[i].trim());
             }
         }
         String[] selectedColumnArray = columnList.toArray(new String[columnList.size()]);
-        Arrays.sort(selectedColumnArray);
 
         //process on clause
         String[] splitOnClause = onClause.split("=");
@@ -121,7 +115,7 @@ public class Solution implements Runnable {
 
         for (int i = 0; i < table1.getnD(); i++) {
             for (int j = 0; j < table2.getnD(); j++) {
-                if (table1.getTableData()[i][table1Index] == table1.getTableData()
+                if (table1.getTableData()[i][table1Index] == table2.getTableData()
                         [j][table2Index]) {
                     int[] resultRow = new int[selectedColumnArray.length];
                     Map<String, Integer> map1 = table1.getColumnMap();

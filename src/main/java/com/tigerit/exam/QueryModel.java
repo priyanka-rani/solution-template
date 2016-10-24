@@ -1,8 +1,5 @@
 package com.tigerit.exam;
 
-import com.sun.deploy.util.StringUtils;
-
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -35,7 +32,9 @@ public class QueryModel {
     }
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(StringUtils.join(Arrays.asList(selectedColumns), " "));
+        for(String column : selectedColumns){
+            sb.append(column+" ");
+        }
         for(int[] rows: results){
             sb.append("\n");
             for(int rowValue : rows){
