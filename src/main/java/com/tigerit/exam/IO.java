@@ -37,7 +37,4 @@ public class IO {
         System.out.println(value);
     }
 
-    public static String removeFirstWord(String string) {
-        return string.trim().split("\\s+", 2)[1];
-    }
 }

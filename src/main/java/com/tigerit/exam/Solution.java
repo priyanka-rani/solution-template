@@ -16,6 +16,10 @@ import static com.tigerit.exam.IO.*;
  * application's execution points start from inside run method.
  */
 public class Solution implements Runnable {
+    private String removeFirstWord(String string) {
+        return string.trim().split("\\s+", 2)[1];
+    }
+
     @Override
     public void run() {
         // your application entry point
@@ -151,5 +155,121 @@ public class Solution implements Runnable {
             }
         }
         return new TableModel(tableName, nC, nD, tableColumnNames, tableData);
+    }
+
+    /**
+     * Created by Priyanka on 10/24/2016.
+     */
+
+    public static class TableModel {
+        private String tableName;
+        private int nC;
+        private int nD;
+        private String[] columnNames;
+        private int[][] tableData;
+        private Map<String, Integer> columnMap = new HashMap<>();
+
+        public TableModel(String tableName, int nC, int nD,
+                          String[] columnNames, int[][] tableData) {
+            this.tableName = tableName;
+            this.nC = nC;
+            this.nD = nD;
+            this.columnNames = columnNames;
+            this.tableData = tableData;
+            for(int i = 0; i< nC; i++){
+                columnMap.put(columnNames[i], i);
+            }
+        }
+
+        public String getTableName() {
+            return tableName;
+        }
+
+        public void setTableName(String tableName) {
+            this.tableName = tableName;
+        }
+
+        public int getnC() {
+            return nC;
+        }
+
+        public void setnC(int nC) {
+            this.nC = nC;
+        }
+
+        public int getnD() {
+            return nD;
+        }
+
+        public void setnD(int nD) {
+            this.nD = nD;
+        }
+
+        public int[][] getTableData() {
+            return tableData;
+        }
+
+        public void setTableData(int[][] tableData) {
+            this.tableData = tableData;
+        }
+
+        public String[] getColumnNames() {
+            return columnNames;
+        }
+
+        public void setColumnNames(String[] columnNames) {
+            this.columnNames = columnNames;
+        }
+
+        public Map<String, Integer> getColumnMap() {
+            return columnMap;
+        }
+
+        public void setColumnMap(Map<String, Integer> columnMap) {
+            this.columnMap = columnMap;
+        }
+    }
+
+    /**
+     * Created by Priyanka on 10/24/2016.
+     */
+
+    public static class QueryModel {
+        private String[] selectedColumns;
+        private List<int[]> results;
+
+        public QueryModel(String[] selectedColumns, List<int[]> results) {
+            this.selectedColumns = selectedColumns;
+            this.results = results;
+        }
+
+        public String[] getSelectedColumns() {
+            return selectedColumns;
+        }
+
+        public void setSelectedColumns(String[] selectedColumns) {
+            this.selectedColumns = selectedColumns;
+        }
+
+        public List<int[]> getResults() {
+            return results;
+        }
+
+        public void setResults(List<int[]> results) {
+            this.results = results;
+        }
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            for(String column : selectedColumns){
+                sb.append(column+" ");
+            }
+            for(int[] rows: results){
+                sb.append("\n");
+                for(int rowValue : rows){
+                    sb.append(rowValue+" ");
+                }
+            }
+            return sb.toString();
+        }
     }
 }
